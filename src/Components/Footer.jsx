@@ -2,7 +2,11 @@ import React from "react";
 
 const Footer = () => (
   <footer className="bg-stone-800">
-    <div className="container mx-auto text-slate-300">
+    <div
+      className={`container mx-auto text-slate-300 ${
+        window.innerWidth <= 640 ? "px-10" : ""
+      }`}
+    >
       <div className="flex justify-between">
         <div className="w-1/2">
           <p className="text-6xl py-2 text-slate-100">Мир Кино</p>

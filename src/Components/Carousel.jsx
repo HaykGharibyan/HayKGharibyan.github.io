@@ -42,7 +42,7 @@ function Carousel() {
   return (
     <main className=" bg-gradient-to-b from-stone-800 to-red-800">
       <div className=" container mx-auto  bg-gradient-to-b  from-stone-800 to-red-800">
-        <h1 className="text-slate-100   text-4xl pt-24">
+        <h1 className="text-slate-100   text-4xl pt-24 py-3 ml-11">
           <strong>Новинки этого года:</strong>
         </h1>
         <div className="max-w-[1400px] h-[500px]  m-auto pt-10 relative group">

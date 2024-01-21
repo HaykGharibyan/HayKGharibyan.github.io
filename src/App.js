@@ -273,7 +273,11 @@ class App extends Component {
           </div>
         )}
         {this.state.showCart && (
-          <div className=" fixed w-full h-full  items-start bg-opacity-90 bg-neutral-700 z-50 ">
+          <div
+            className={` fixed w-full h-full  items-start bg-opacity-90 bg-neutral-700 z-50 ${
+              window.innerWidth <= 640 ? "px-5" : "sm:m-10"
+            }`}
+          >
             <div className=" flex container mx-auto justify-between py-20">
               <strong className="text-5xl text-slate-200">
                 Список избранных
@@ -349,8 +353,12 @@ class App extends Component {
           </div>
         )}
         {this.state.showSearchCart && (
-          <div className=" fixed w-full h-full flex  items-start py-32 justify-center bg-opacity-90 bg-neutral-700 z-50 ">
-            <div className="container mx-96 ">
+          <div className="  fixed w-full h-full flex  items-start py-32 justify-center bg-opacity-90 bg-neutral-700 z-50 ">
+            <div
+              className={`container   ${
+                window.innerWidth <= 640 ? "mx-5" : "mx-96"
+              }`}
+            >
               <h1 className="text-5xl py-7 text-slate-100  ">
                 <strong>Поиск</strong>
               </h1>
@@ -382,7 +390,9 @@ class App extends Component {
               ) : null}
 
               <button
-                className="right-32 top-16 absolute"
+                className={`right-32 top-16 absolute ${
+                  window.innerWidth <= 640 ? "right-12 top-12" : ""
+                }`}
                 onClick={() => this.setState({ showSearchCart: false })}
               >
                 <img
@@ -561,8 +571,16 @@ class App extends Component {
           ref={this.ref}
           onOpenFilm={this.handleOpenFilm}
         />
-        <Serials onClick={this.handleAddDiv} ref={this.serialsRef} />
-        <GenreList onClick={this.handleAddDiv} ref={this.genreRef} />
+        <Serials
+          onOpenFilm={this.handleOpenFilm}
+          onClick={this.handleAddDiv}
+          ref={this.serialsRef}
+        />
+        <GenreList
+          onOpenFilm={this.handleOpenFilm}
+          onClick={this.handleAddDiv}
+          ref={this.genreRef}
+        />
         <Footer />
       </div>
     );

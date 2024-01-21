@@ -4,7 +4,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import favoriteicon from "../Assets/heart.png";
 import watchicon from "../Assets/watch.png";
 
-const Serials = forwardRef(({ onClick }, ref) => {
+const Serials = forwardRef(({ onClick, onOpenFilm }, ref) => {
   const [selectedFilmId, setSelectedFilmId] = useState(null);
 
   const handleButtonClick = (id) => {
@@ -53,7 +53,10 @@ const Serials = forwardRef(({ onClick }, ref) => {
                   <div className="text-white text-center ">
                     <p className=" text-xl py-3">{item.name}</p>
                     <div className="flex items-center justify-between space-x-7">
-                      <button className="border-2 rounded-md border-red-700 text-slate-400 px-3 hover:border-red-900">
+                      <button
+                        onClick={onOpenFilm}
+                        className="border-2 rounded-md border-red-700 text-slate-400 px-3 hover:border-red-900"
+                      >
                         <img
                           className="w-12 px-3 py-1"
                           src={watchicon}

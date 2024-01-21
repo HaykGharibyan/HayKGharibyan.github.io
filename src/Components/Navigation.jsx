@@ -3,7 +3,8 @@ import logo from "../Assets/logo.png";
 import search from "../Assets/search-interface-symbol.png";
 import usericon from "../Assets/user.png";
 import closeicon from "../Assets/close.png";
-
+import { useMediaQuery } from "react-responsive";
+import toggleIcon from "../Assets/open-menu.png";
 export default function Navigation({
   onOpenCart,
   onSearch,
@@ -15,6 +16,7 @@ export default function Navigation({
   const [openBuyPage, setOpenBuyPage] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
   const [visible, setVisible] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
   const openPage = () => {
     setOpenBuyPage(true);
@@ -22,7 +24,11 @@ export default function Navigation({
   const closePage = () => {
     setOpenBuyPage(false);
   };
-
+  const isMobile = useMediaQuery({ maxWidth: 1024 }); // Включая 'md' и меньше
+  const isMobilee = useMediaQuery({ minWidth: 1024 }); // Включая 'md' и меньше
+  let toggleNavbar = () => {
+    setToggle(!toggle);
+  };
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
@@ -107,67 +113,158 @@ export default function Navigation({
         </div>
       )}
       <div
-        className={`bg-stone-800 z-40 fixed w-full top-0 transition-transform ${
+        className={`bg-stone-800 z-40  fixed w-full top-0 transition-transform ${
           visible ? "transform-none" : "-translate-y-full"
         }`}
       >
-        <div className="container mx-auto bg-stone-800">
+        <div className="container mx-auto   bg-stone-800">
           <div className=" flex justify-between py-5 ">
-            <div className="flex space-x-3 ">
-              <img src={logo} alt="logo" className="mr-1 w-8 h-8" />
-              <strong className="  text-slate-200 whitespace-nowrap p-1">
-                <a href=""> Мир Кино</a>
-              </strong>
-              <button
-                className=" text-neutral-400   hover:text-slate-200 "
-                onClick={onOpenCart}
-              >
-                Мой мир
-              </button>
-              <button className=" text-neutral-400   hover:text-slate-200 ">
-                Что нового
-              </button>
-              <button
-                onClick={onClick}
-                className=" text-neutral-400   hover:text-slate-200 "
-              >
-                Фильмы
-              </button>
-              <button
-                onClick={onScrollToSerials}
-                className=" text-neutral-400   hover:text-slate-200 "
-              >
-                Сериалы
-              </button>
-              <button
-                onClick={onScrollToGenre}
-                className=" text-neutral-400   hover:text-slate-200 "
-              >
-                Все жанры
-              </button>
+            <div
+              className={`flex space-x-3  left-3 ${
+                window.innerWidth <= 640 ? "left-3" : "{sm:m-10}"
+              }`}
+            >
+              {!toggle && (
+                <div className="flex  ml-4 justify-between">
+                  <img src={logo} alt="logo" className="mr-1 w-8 h-8" />
+                  <strong className="  text-slate-200 whitespace-nowrap p-1">
+                    <a href=""> Мир Кино</a>
+                  </strong>
+                </div>
+              )}
+
+              {isMobilee && (
+                <div className="flex space-x-3 ">
+                  <button
+                    className=" text-neutral-400   hover:text-slate-200 "
+                    onClick={onOpenCart}
+                  >
+                    Мой мир
+                  </button>
+                  <button className=" text-neutral-400   hover:text-slate-200 ">
+                    Что нового
+                  </button>
+                  <button
+                    onClick={onClick}
+                    className=" text-neutral-400   hover:text-slate-200 "
+                  >
+                    Фильмы
+                  </button>
+                  <button
+                    onClick={onScrollToSerials}
+                    className=" text-neutral-400   hover:text-slate-200 "
+                  >
+                    Сериалы
+                  </button>
+                  <button
+                    onClick={onScrollToGenre}
+                    className=" text-neutral-400   hover:text-slate-200 "
+                  >
+                    Все жанры
+                  </button>
+                </div>
+              )}
             </div>
-            <div className="flex  space-x-3">
+            {isMobilee && (
+              <div className="flex  space-x-3">
+                <button
+                  onClick={openPage}
+                  className="bg-red-600 rounded-md text-slate-200 text-sm px-3 hover:bg-red-800"
+                >
+                  Смотреть 30 дней бесплатно
+                </button>
+                <button
+                  onClick={onSearch}
+                  className="border-2 rounded-md border-red-700 text-slate-400 px-2 hover:border-red-900 flex items-center"
+                >
+                  <img src={search} alt="user icon" className="w-5 mr-1 " />
+                  Поиск...
+                </button>
+                <button
+                  onClick={onLogin}
+                  className="border-2 rounded-md border-red-700 text-slate-400 px-2 hover:border-red-900 flex items-center"
+                >
+                  <img src={usericon} alt="user icon" className="w-5 mr-1 " />
+                  Войти
+                </button>
+              </div>
+            )}
+            {isMobile && (
               <button
-                onClick={openPage}
-                className="bg-red-600 rounded-md text-slate-200 text-sm px-3 hover:bg-red-800"
+                onClick={toggleNavbar}
+                className={`flex fixed right-3 lg:hidden space-x-3 ${
+                  window.innerWidth <= 640 ? "mx-3" : "{sm:m-10}"
+                } transition-transform ease-in-out duration-300 transform ${
+                  toggle ? "rotate-180 " : "rotate-0"
+                }`}
               >
-                Смотреть 30 дней бесплатно
+                <img src={toggleIcon} alt="" />
               </button>
-              <button
-                onClick={onSearch}
-                className="border-2 rounded-md border-red-700 text-slate-400 px-2 hover:border-red-900 flex items-center"
-              >
-                <img src={search} alt="user icon" className="w-5 mr-1 " />
-                Поиск...
-              </button>
-              <button
-                onClick={onLogin}
-                className="border-2 rounded-md border-red-700 text-slate-400 px-2 hover:border-red-900 flex items-center"
-              >
-                <img src={usericon} alt="user icon" className="w-5 mr-1 " />
-                Войти
-              </button>
-            </div>
+            )}
+            {toggle && (
+              <div className="w-full  transition-transform ease-in-out  duration-300 h-full flex flex-col  justify-center items-center  bg-stone-800 ">
+                <img src={logo} alt="logo" className="mr-1 w-10 h-10" />
+                <strong className="  text-slate-200 text-2xl whitespace-nowrap p-1">
+                  <a href=""> Мир Кино</a>
+                </strong>
+                <div className="flex flex-col space-y-1  text-xl mx-auto w-full h-full mb-3  ">
+                  <button
+                    className=" text-neutral-400   hover:text-slate-200   "
+                    onClick={onOpenCart}
+                  >
+                    Мой мир
+                  </button>
+                  <button className=" text-neutral-400   hover:text-slate-200 ">
+                    Что нового
+                  </button>
+                  <button
+                    onClick={onClick}
+                    className=" text-neutral-400   hover:text-slate-200 "
+                  >
+                    Фильмы
+                  </button>
+                  <button
+                    onClick={onScrollToSerials}
+                    className=" text-neutral-400   hover:text-slate-200 "
+                  >
+                    Сериалы
+                  </button>
+                  <button
+                    onClick={onScrollToGenre}
+                    className=" text-neutral-400   hover:text-slate-200 "
+                  >
+                    Все жанры
+                  </button>
+                </div>
+                <div className=" flex flex-col   mx-auto w-full h-full   ">
+                  <button
+                    onClick={openPage}
+                    className="bg-red-600 rounded-lg mx-4 text-slate-200 text-md p-2   hover:bg-red-800"
+                  >
+                    Смотреть 30 дней бесплатно
+                  </button>
+                </div>
+                <div className="flex flex-col mx-auto w-full h-full">
+                  <button
+                    onClick={onSearch}
+                    className="border-2 rounded-lg my-3 p-2 mx-4 border-red-700 text-slate-400 px-2 hover:border-red-900 flex items-center justify-center"
+                  >
+                    <img src={search} alt="search icon" className="w-5 mr-1" />
+                    Поиск...
+                  </button>
+                </div>
+
+                <div className="flex flex-col text-center mx-auto w-full h-full">
+                  <button
+                    onClick={onLogin}
+                    className="border-2 rounded-lg mx-4 border-red-700 p-2 text-slate-400 px-2 hover:border-red-900 flex items-center justify-center"
+                  >
+                    <img src={usericon} alt="user icon" className="w-5 mr-1" />
+                    Войти
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
