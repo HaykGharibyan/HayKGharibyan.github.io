@@ -24,8 +24,8 @@ export default function Navigation({
   const closePage = () => {
     setOpenBuyPage(false);
   };
-  const isMobile = useMediaQuery({ maxWidth: 1024 }); // Включая 'md' и меньше
-  const isMobilee = useMediaQuery({ minWidth: 1024 }); // Включая 'md' и меньше
+  const isMobile = useMediaQuery({ maxWidth: 1024 });
+  const isMobilee = useMediaQuery({ minWidth: 1024 });
   let toggleNavbar = () => {
     setToggle(!toggle);
   };
@@ -46,8 +46,16 @@ export default function Navigation({
     <header>
       {openBuyPage && (
         <div className=" fixed w-full h-full   flex items-start py-16 justify-center bg-opacity-90 bg-neutral-700 z-50 ">
-          <div className="container mx-96 ">
-            <h1 className="text-7xl text-center  text-slate-100  ">
+          <div
+            className={`container   ${
+              window.innerWidth <= 640 ? "mx-1  " : "mx-96"
+            }`}
+          >
+            <h1
+              className={`container   text-center  text-slate-100   ${
+                window.innerWidth <= 640 ? "text-6xl" : "text-7xl"
+              }`}
+            >
               <strong>
                 ПОДПИСКА
                 <br /> МИР КИНО
@@ -62,7 +70,11 @@ export default function Navigation({
                 Смотреть 30 дней бесплатно
               </strong>
             </button>
-            <div className="grid grid-cols-3 gap-10 mt-10 -mx-20">
+            <div
+              className={`  grid grid-cols-3 gap-10 mt-10 -mx-20     ${
+                window.innerWidth <= 640 ? " opacity-0" : ""
+              }`}
+            >
               <div className=" grid col-span-1 bg-opacity-40 rounded-2xl bg-amber-400 hover:bg-opacity-95">
                 <strong>
                   <h2 className=" text-slate-200 text-center text-2xl p-2">
@@ -102,7 +114,12 @@ export default function Navigation({
               </div>
             </div>
 
-            <button className="right-32 top-16 absolute" onClick={closePage}>
+            <button
+              className={`right-32 top-16 absolute   ${
+                window.innerWidth <= 640 ? " right-7 top-6  " : ""
+              }`}
+              onClick={closePage}
+            >
               <img
                 src={closeicon}
                 alt="closeIcon "

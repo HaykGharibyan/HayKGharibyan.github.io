@@ -275,29 +275,29 @@ class App extends Component {
         {this.state.showCart && (
           <div
             className={` fixed w-full h-full  items-start bg-opacity-90 bg-neutral-700 z-50 ${
-              window.innerWidth <= 640 ? "px-5" : "sm:m-10"
+              window.innerWidth <= 640 ? "px-5" : ""
             }`}
           >
             <div className=" flex container mx-auto justify-between py-20">
-              <strong className="text-5xl text-slate-200">
+              <strong
+                className={`  text-slate-200 ${
+                  window.innerWidth <= 640 ? "text-4xl  " : " text-5xl"
+                }`}
+              >
                 Список избранных
               </strong>
-              <button
-                className=""
-                onClick={() => this.setState({ showCart: false })}
-              >
-                <img
-                  src={closeicon}
-                  alt="closeIcon "
-                  className="w-6 hover:scale-105"
-                />
-              </button>
             </div>
             <div class=" container mx-auto ">
               {this.state.items.length === 0 ? (
                 <div>
                   <hr classname=" border-stone-800" />
-                  <p className="py-10 text-center text-5xl text-slate-300">
+                  <p
+                    className={` text-center  text-slate-300 ${
+                      window.innerWidth <= 640
+                        ? "text-4xl py-5  "
+                        : " py-10 text-5xl"
+                    }`}
+                  >
                     Список пуст
                   </p>
                   <hr classname="border-stone-800" />
@@ -316,7 +316,11 @@ class App extends Component {
                   >
                     {this.state.items.map((item) => (
                       <div
-                        className="relative w-[250px] inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300"
+                        className={` relative inline-block p-2 cursor-pointer hover:scale-105 ease-in-out duration-300  ${
+                          window.innerWidth <= 640
+                            ? " w-[200px]  "
+                            : "  w-[250px]"
+                        }`}
                         key={item.props.key}
                       >
                         <img
@@ -348,7 +352,19 @@ class App extends Component {
                     size={40}
                   />
                 </div>
-              )}
+              )}{" "}
+              <button
+                className={`right-32 top-16 absolute   ${
+                  window.innerWidth <= 640 ? " right-7 top-6  " : ""
+                }`}
+                onClick={() => this.setState({ showCart: false })}
+              >
+                <img
+                  src={closeicon}
+                  alt="closeIcon "
+                  className="w-6 hover:scale-105"
+                />
+              </button>
             </div>
           </div>
         )}
@@ -390,8 +406,8 @@ class App extends Component {
               ) : null}
 
               <button
-                className={`right-32 top-16 absolute ${
-                  window.innerWidth <= 640 ? "right-12 top-12" : ""
+                className={`right-32 top-16 absolute   ${
+                  window.innerWidth <= 640 ? " right-7 top-6  " : ""
                 }`}
                 onClick={() => this.setState({ showSearchCart: false })}
               >
@@ -406,7 +422,11 @@ class App extends Component {
         )}
         {this.state.showLogForm && (
           <div className="fixed w-full h-full flex items-start py-32  justify-center bg-opacity-90 bg-neutral-700 z-50">
-            <div className="container mx-96">
+            <div
+              className={`container  ${
+                window.innerWidth <= 640 ? "mx-5" : "mx-96"
+              }`}
+            >
               <h1 className="text-2xl text-center text-slate-100">
                 <strong>
                   {" "}
@@ -453,7 +473,7 @@ class App extends Component {
                           </strong>
                         )}{" "}
                         <p className=" text-center text-xl m-3">
-                          Имя ползоавелья
+                          Имя пользователя
                         </p>
                         <input
                           className="block bg-white w-full border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
@@ -505,7 +525,7 @@ class App extends Component {
                             </strong>
                           )}
                           <p className=" text-center text-xl m-3 ">
-                            Имя ползоавелья
+                            Имя пользователя
                           </p>
                           <input
                             className="block bg-white w-full border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
@@ -516,9 +536,13 @@ class App extends Component {
                             }
                             placeholder="Логин"
                           />
+                          <p className="text-center text-slate-600 ">
+                            {` Внимание! имя должно содержать заглавные и строчные буквы, (_,-,.) . `}
+                          </p>
                         </div>
                         <div>
                           <p className=" text-center text-xl m-3">Пароль</p>
+
                           <input
                             className="block bg-white w-full border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
                             type="password"
@@ -528,9 +552,14 @@ class App extends Component {
                             }
                             placeholder="Пароль"
                           />
+                          <p className="text-center text-slate-600 ">
+                            Внимание! пароль должен содержать разнообразные
+                            символы, включать заглавные и строчные буквы, цифры
+                            и специальные символы.
+                          </p>
                         </div>
                         <button
-                          className="border-2 w-1/3 h-10  rounded-md mx-auto mt-5 border-green-600 bg-green-300 px-2 hover:bg-green-700  hover:border-green-300 hover:text-slate-300 flex items-center"
+                          className="border-2  h-10  rounded-md mx-auto mt-5 border-green-600 bg-green-300 px-2 hover:bg-green-700  hover:border-green-300 hover:text-slate-300 flex items-center"
                           onClick={this.handleAddObject}
                         >
                           <strong className="mx-auto uppercase">
@@ -543,7 +572,9 @@ class App extends Component {
                 )}
               </div>
               <button
-                className="right-32 top-16 absolute"
+                className={`right-32 top-16 absolute   ${
+                  window.innerWidth <= 640 ? " right-7 top-6  " : ""
+                }`}
                 onClick={() => this.setState({ showLogForm: false })}
               >
                 <img
