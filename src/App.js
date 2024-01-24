@@ -246,21 +246,22 @@ class App extends Component {
     return (
       <div>
         {this.state.openFilm && (
-          <div className="fixed w-full  h-full  flex items-start py-16 justify-center bg-opacity-90 bg-neutral-700 z-50 ">
-            <div className="container flex items-center justify-center ">
+          <div className="fixed w-full h-full flex items-start py-16 justify-center bg-opacity-90 bg-neutral-700 z-50">
+            <div className="container flex  items-center justify-center ">
               <div>
                 <p className="text-white text-3xl mb-5">Название фильма</p>
                 <ReactPlayer
-                  className=" "
                   url={"https://www.youtube.com/watch?v=U6EOzNprSXo"}
                   controls
-                  width="800px"
-                  height="450px"
+                  width={window.innerWidth <= 640 ? "350px" : "800px"}
+                  height={window.innerWidth <= 640 ? "280px" : "450px"}
                 />
               </div>
 
               <button
-                className="right-32 top-16 absolute"
+                className={`right-32 top-16 absolute ${
+                  window.innerWidth <= 640 ? "right-7 top-6" : ""
+                }`}
                 onClick={() => this.setState({ openFilm: false })}
               >
                 <img
@@ -386,14 +387,22 @@ class App extends Component {
                 className="block bg-white w-full border rounded-md py-2 pl-4 pr-3 shadow-sm hover:border-sky-500 focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
               />
               {this.state.searchText && this.state.searchResults.length > 0 ? (
-                <div className="grid grid-cols-3 p-3 w-full h-full bg-slate-200 rounded-2xl  mt-3">
+                <div
+                  className={`  grid  p-3  bg-slate-200 rounded-2xl  mt-3  ${
+                    window.innerWidth <= 640
+                      ? " grid-cols-1 text-2xl "
+                      : "grid-cols-3 w-full h-full"
+                  }`}
+                >
                   {this.state.searchResults.map((film) => (
                     <div
                       key={film.id}
                       className="flex items-center cursor-pointer"
                     >
                       <img
-                        className="w-20 m-2 rounded-xl "
+                        className={`   m-2 rounded-xl ${
+                          window.innerWidth <= 640 ? "w-16  " : " w-20"
+                        }`}
                         src={film.img}
                         alt={film.name}
                       />
