@@ -41,7 +41,7 @@ const Films = forwardRef(({ onClick, onOpenFilm }, ref) => {
     >
       <div className="container mx-auto">
         <h2 className="text-slate-100 text-4xl pb-3 ml-10 mb-6">
-          Фильмы с высоким рейтингом:
+          Фильмы с высоким рейтингомffffffff:
         </h2>
         <div className="relative flex items-center">
           <MdChevronLeft
