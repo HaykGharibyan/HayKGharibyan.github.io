@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useRef } from "react";
 import FilmsArray from "./FilmsArray";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import favoriteicon from "../Assets/heart.png";
@@ -6,6 +6,7 @@ import watchicon from "../Assets/watch.png";
 
 const Films = forwardRef(({ onClick, onOpenFilm }, ref) => {
   const [selectedFilmId, setSelectedFilmId] = useState(null);
+  const sliderRef = useRef(null);
 
   const handleButtonClick = (id) => {
     setSelectedFilmId(id);
@@ -13,19 +14,17 @@ const Films = forwardRef(({ onClick, onOpenFilm }, ref) => {
   };
 
   const slideLeft = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft - 500;
+    sliderRef.current.scrollLeft -= 500;
   };
 
   const slideRight = () => {
-    var slider = document.getElementById("slider");
-    slider.scrollLeft = slider.scrollLeft + 500;
+    sliderRef.current.scrollLeft += 500;
   };
 
   return (
     <section ref={ref} className="bg-gradient-to-b to-stone-800 from-red-800">
       <div className="container mx-auto">
-        <h2 className="text-slate-100 text-4xl pb-3  ml-10 mb-6">
+        <h2 className="text-slate-100 text-4xl pb-3 ml-10 mb-6">
           Фильмы с высоким рейтингом:
         </h2>
         <div className="relative flex items-center">
@@ -35,9 +34,9 @@ const Films = forwardRef(({ onClick, onOpenFilm }, ref) => {
             size={40}
           />
           <div
-            id="slider"
-            className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
-            style={{ overflow: "hidden" }}
+            ref={sliderRef}
+            className="w-full h-full overflow-x-scroll whitespace-nowrap"
+            style={{ overflow: "hidden", scrollBehavior: "smooth" }}
           >
             {FilmsArray.map((item) => (
               <div
