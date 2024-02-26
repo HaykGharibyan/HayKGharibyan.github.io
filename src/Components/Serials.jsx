@@ -35,8 +35,7 @@ const Serials = forwardRef(({ onClick, onOpenFilm }, ref) => {
           />
           <div
             id="sliderr"
-            className="w-full   h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
-            style={{ overflow: "hidden" }}
+            class="w-full h-full overflow-x-scroll overflow-y-hidden lg:overflow-hidden whitespace-nowrap scroll-smooth scrollbar-hide    "
           >
             {dataa.map((item) => (
               <div

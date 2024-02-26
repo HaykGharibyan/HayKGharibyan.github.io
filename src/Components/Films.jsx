@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useRef } from "react";
+import React, { forwardRef, useState } from "react";
 import FilmsArray from "./FilmsArray";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import favoriteicon from "../Assets/heart.png";
@@ -6,42 +6,27 @@ import watchicon from "../Assets/watch.png";
 
 const Films = forwardRef(({ onClick, onOpenFilm }, ref) => {
   const [selectedFilmId, setSelectedFilmId] = useState(null);
-  const sliderRef = useRef(null);
-  const startXRef = useRef(null);
 
   const handleButtonClick = (id) => {
     setSelectedFilmId(id);
     onClick(id);
   };
 
-  const handleTouchStart = (event) => {
-    startXRef.current = event.touches[0].clientX;
-  };
-
-  const handleTouchMove = (event) => {
-    const diff = startXRef.current - event.touches[0].clientX;
-    sliderRef.current.scrollLeft += diff * 2; // Увеличьте значение 2 для более быстрой прокрутки
-    startXRef.current = event.touches[0].clientX;
-  };
-
   const slideLeft = () => {
-    sliderRef.current.scrollLeft -= 500;
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft - 500;
   };
 
   const slideRight = () => {
-    sliderRef.current.scrollLeft += 500;
+    var slider = document.getElementById("slider");
+    slider.scrollLeft = slider.scrollLeft + 500;
   };
 
   return (
-    <section
-      ref={ref}
-      className="bg-gradient-to-b to-stone-800 from-red-800"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-    >
+    <section ref={ref} className="bg-gradient-to-b to-stone-800 from-red-800">
       <div className="container mx-auto">
-        <h2 className="text-slate-100 text-4xl pb-3 ml-10 mb-6">
-          Фильмы с высоким рейтингомffffffff:
+        <h2 className="text-slate-100 text-4xl pb-3  ml-10 mb-6">
+          Фильмы с высоким рейтингом:
         </h2>
         <div className="relative flex items-center">
           <MdChevronLeft
@@ -50,9 +35,8 @@ const Films = forwardRef(({ onClick, onOpenFilm }, ref) => {
             size={40}
           />
           <div
-            ref={sliderRef}
-            className="w-full h-full overflow-x-scroll whitespace-nowrap"
-            style={{ overflow: "hidden", scrollBehavior: "smooth" }}
+            id="slider"
+            class="w-full h-full overflow-x-scroll overflow-y-hidden lg:overflow-hidden whitespace-nowrap scroll-smooth scrollbar-hide    "
           >
             {FilmsArray.map((item) => (
               <div
